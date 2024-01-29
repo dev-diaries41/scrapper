@@ -82,11 +82,10 @@ async function scrapeResults(page, postcodePrefix, browser) {
   
   
 
-// // Example usage
-// const postcode = 'E15';
-// scrapeCompaniesByPostcode(postcode).then(results => {
-//     console.log(results);
-//     console.log('Number results: ', (results?.companiesInfo?.length|| 0));
-// });
+// Example usage
+const postcode = 'E15';
+scrapeCompaniesByPostcode(postcode, 'ai companies').then(results => {
+    console.log(results.data.companiesInfo);
+});
 
 

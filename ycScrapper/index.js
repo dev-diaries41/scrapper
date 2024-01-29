@@ -55,10 +55,11 @@ async function scrapeYCCompanies(industry = null) {
     }
 }
 
-// // Example usage
-// scrapeYCCompanies().then(results => {
-//     const companiesFounders = results.map(company => company.founders)
-//     console.log(companiesFounders);
-// });
+// Example usage
+scrapeYCCompanies().then(results => {
+    console.log(results)
+    // const companiesFounders = results.map(company => company.founders)
+    // console.log(companiesFounders);
+});
 
 

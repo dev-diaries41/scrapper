@@ -3,14 +3,17 @@ import pLimit from 'p-limit';
 const sec = 1000;    // 1 second in milliseconds
 const min = 60 * sec;
 
+// Updated selectors on 29th Jan - previous selectors stopped working
+// If the extractCompanies function is not working as expected 
+// it is likely due to YC updating there website
 async function extractCompanies(page) {
     try {
         const baseUrl = 'https://www.ycombinator.com';
-        const companyInfoSelector = 'a[class="_company_lx3q7_339"]';
-        const companyNameSelector = 'span[class="_coName_lx3q7_454"]';
-        const companyLocationSelector = 'span[class="_coLocation_lx3q7_470"]';
-        const companyDescriptionSelector = 'span[class="_coDescription_lx3q7_479"]';
-        const tagsSelector = 'a[class="_tagLink_lx3q7_1013"]';
+        const companyInfoSelector = 'a[class="_company_h0r20_339"]';
+        const companyNameSelector = 'span[class="_coName_h0r20_454"]';
+        const companyLocationSelector = 'span[class="_coLocation_h0r20_470"]';
+        const companyDescriptionSelector = 'span[class="_coDescription_h0r20_479"]';
+        const tagsSelector = 'a[class="_tagLink_h0r20_1020"]';
 
         const companyDataList = await page.evaluate(({ baseUrl, companyInfoSelector, companyNameSelector, companyLocationSelector, companyDescriptionSelector, tagsSelector }) => {
             const companyElements = document.querySelectorAll(companyInfoSelector);
@@ -35,7 +38,6 @@ async function extractCompanies(page) {
                 return finalData;
             });
         }, { baseUrl, companyInfoSelector, companyNameSelector, companyLocationSelector, companyDescriptionSelector, tagsSelector });
-
         return companyDataList;
 
     } catch (error) {
@@ -99,7 +101,7 @@ async function extractFounderInfo(page) {
 }
 
 
-
+// This function is responsible for getting the website, founders, status, and additional industry tags
 async function extractExtraInfo(browser, company){
     let extraInfoPage;
     const updatedCompany = {...company};
@@ -129,7 +131,7 @@ async function extractExtraInfo(browser, company){
 }
 
 async function getCompanies(page, browser) {
-    const limit = pLimit(10)
+    const limit = pLimit(5)
 
     try {
         const companies = await extractCompanies(page);
